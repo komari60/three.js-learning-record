@@ -6,11 +6,11 @@ var scene, cube, camera, renderer, plane;
 var axesHelper, controlCamera, ambientLight, cylinderGeometry, spotLight;
 // var changeCamera
 
+initScene();
 init();
-render();
 createLight();
 initSpotLight();
-initScene();
+render();
 
 function initScene(){
     scene = new THREE.Scene();
@@ -51,10 +51,10 @@ function init() {
     scene.add(cylinderGeometry);
 }
 
-// function createLight() {
-//     ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
-//     scene.add(ambientLight);
-// }
+function createLight() {
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+    scene.add(ambientLight);
+}
 
 function initSpotLight(){
     spotLight = new THREE.SpotLight(0xffffff, 1000000);

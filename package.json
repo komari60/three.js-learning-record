@@ -1,7 +1,7 @@
 {
   "name": "vite-three-project",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,5 +10,10 @@
   },
   "devDependencies": {
     "vite": "^5.4.8"
+  },
+  "dependencies": {
+    "sass": "^1.80.4",
+    "sass-loader": "^16.0.2",
+    "three": "^0.169.0"
   }
 }

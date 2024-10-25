@@ -33,7 +33,7 @@ function init() {
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, innerHeight);
-    document.body.appendChild(renderer.domElement);
+    document.querySelector('#app').appendChild(renderer.domElement);
 
     controlCamera = new OrbitControls(camera, renderer.domElement);
 

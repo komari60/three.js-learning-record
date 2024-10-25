@@ -1,7 +1,5 @@
-import './style.css'
-// import javascriptLogo from './javascript.svg'
-// import viteLogo from '/vite.svg'
-// import { setupCounter } from './counter.js'
+import './style.scss'
+import './01-three'
 
 // document.querySelector('#app').innerHTML = `
 //   <div>
@@ -21,8 +19,4 @@ import './style.css'
 //   </div>
 // `
 
-// setupCounter(document.querySelector('#counter'))
-import './01-three'
-
-
-
+console.info('你好。')

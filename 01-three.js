@@ -12,6 +12,8 @@ createLight();
 initSpotLight();
 render();
 
+
+
 function initScene(){
     scene = new THREE.Scene();
 }
@@ -19,8 +21,9 @@ function initScene(){
 function init() {
 
     var firstbox = new THREE.BoxGeometry(2, 5, 1);
-    var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+    var material = new THREE.MeshStandardMaterial({ color: 0xffff00 });
     cube = new THREE.Mesh(firstbox, material);
+    // cube.castShadow = true;
     scene.add(cube);
 
     axesHelper = new THREE.AxesHelper(5);
@@ -32,15 +35,18 @@ function init() {
     camera.position.y = 0.4;
 
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, innerHeight);
-    document.querySelector('#app').appendChild(renderer.domElement);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // renderer.shadowMap.enabled = true;
+    // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    document.body.appendChild(renderer.domElement);
 
     controlCamera = new OrbitControls(camera, renderer.domElement);
 
     var firsPlane = new THREE.PlaneGeometry(200, 100);
-    var planMaterial = new THREE.MeshBasicMaterial({ color: 0x808080 });
+    var planMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
     plane = new THREE.Mesh(firsPlane, planMaterial);
     plane.position.set(0, -3, 0);
+    // plane.receiveShadow = true;
     scene.add(plane);
     plane.rotation.x = -Math.PI / 2;
 
@@ -52,13 +58,17 @@ function init() {
 }
 
 function createLight() {
-    ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 }
 
 function initSpotLight(){
-    spotLight = new THREE.SpotLight(0xffffff, 1000000);
-    spotLight.position.set(-50, 80, 0);
+    spotLight = new THREE.SpotLight(0xffffff, 1);
+    spotLight.angle = Math.PI / 4;
+    spotLight.distance = 100;
+    spotLight.penumbra = 0.5;
+    spotLight.decay = 2;
+    spotLight.position.set(0, 10, 0);
     scene.add(spotLight);
 }
 

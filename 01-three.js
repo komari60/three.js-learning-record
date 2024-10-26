@@ -1,74 +1,86 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-// http://localhost:5173/
 
-var scene, cube, camera, renderer, plane;
-var axesHelper, controlCamera, ambientLight, cylinderGeometry, spotLight;
-// var changeCamera
+let scene, camera, renderer;
+let axesHelper, controlCamera, ambientLight, spotLight;
+let cube, plane, cylinderGeometry;
 
-initScene();
-init();
-createLight();
-initSpotLight();
-render();
-
+main();
+function main(){
+    initScene();
+    initRenderer();
+    initCamera();
+    initControlCamera();
+    initAmbientLight();
+    init();
+    initSpotLight();
+    render();
+}
 
 
 function initScene(){
     scene = new THREE.Scene();
 }
 
-function init() {
+function initRenderer() {
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+}
 
-    var firstbox = new THREE.BoxGeometry(2, 5, 1);
-    var material = new THREE.MeshStandardMaterial({ color: 0xffff00 });
-    cube = new THREE.Mesh(firstbox, material);
-    // cube.castShadow = true;
-    scene.add(cube);
-
-    axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
-
+function initCamera(){
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 5;
     camera.position.x = 2;
     camera.position.y = 0.4;
+    camera.lookAt(0, 0, 0);
+}
 
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    // renderer.shadowMap.enabled = true;
-    // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    document.body.appendChild(renderer.domElement);
-
+function initControlCamera(){
     controlCamera = new OrbitControls(camera, renderer.domElement);
+}
 
-    var firsPlane = new THREE.PlaneGeometry(200, 100);
-    var planMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
+function initAmbientLight() {
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+}
+
+function init() {
+
+    // 坐标轴
+    axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper);
+
+    // 创建的
+    const firstbox = new THREE.BoxGeometry(2, 5, 1);
+    const material = new THREE.MeshStandardMaterial({ color: 0xffff00 });
+    cube = new THREE.Mesh(firstbox, material);
+    // cube.castShadow = true;
+    scene.add(cube);
+
+    const firsPlane = new THREE.PlaneGeometry(200, 100);
+    const planMaterial = new THREE.MeshPhongMaterial({ color: 0x808080 });
     plane = new THREE.Mesh(firsPlane, planMaterial);
     plane.position.set(0, -3, 0);
     // plane.receiveShadow = true;
     scene.add(plane);
     plane.rotation.x = -Math.PI / 2;
 
-    var firstcylinderGeometry = new THREE.CylinderGeometry(1, 1, 8, 64, 1, false);
-    var cylinderGeometryMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    cylinderGeometry = new THREE.Mesh(firstcylinderGeometry, cylinderGeometryMaterial);
+    const firstCylinderGeometry = new THREE.CylinderGeometry(1, 1, 8, 64, 1, false);
+    const cylinderGeometryMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+    cylinderGeometry = new THREE.Mesh(firstCylinderGeometry, cylinderGeometryMaterial);
     cylinderGeometry.position.set(-4, 0, 0);
     scene.add(cylinderGeometry);
-}
-
-function createLight() {
-    ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    
 }
 
 function initSpotLight(){
     spotLight = new THREE.SpotLight(0xffffff, 1);
-    spotLight.angle = Math.PI / 4;
-    spotLight.distance = 100;
-    spotLight.penumbra = 0.5;
-    spotLight.decay = 2;
-    spotLight.position.set(0, 10, 0);
+    // spotLight.angle = Math.PI / 4;
+    // spotLight.distance = 100;
+    // spotLight.penumbra = 0.5;
+    // spotLight.decay = 2;
+    spotLight.position.set(-40, 80, 0);
     scene.add(spotLight);
 }
 

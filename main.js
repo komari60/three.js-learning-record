@@ -1,5 +1,6 @@
 import './style.scss'
-import './01-three'
+// import './01-three'
+import './02-hardSurfaceModel-three'
 
 // document.querySelector('#app').innerHTML = `
 //   <div>
